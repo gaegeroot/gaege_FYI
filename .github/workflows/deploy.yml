@@ -1,10 +1,9 @@
-name: Deploy
+name: Docker Deploy
 
 on:
   push:
     branches:
       - main
-      - feat/dockerize-site
 
 permissions:
   id-token: write
@@ -41,3 +40,26 @@ jobs:
         run: |
           docker push \
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+
+      - name: Deploy to EC2
+        run: |
+          COMMAND_ID=$(aws ssm send-command \
+            --instance-ids i-0ada8397a855e2973 \
+            --document-name "AWS-RunShellScript" \
+            --parameters 'commands=[
+              "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 750521683811.dkr.ecr.us-east-1.amazonaws.com",
+              "docker pull 750521683811.dkr.ecr.us-east-1.amazonaws.com/gr-smart-site:${{ github.sha }}",
+              "docker stop gaege-fyi-web || true",
+              "docker rm gaege-fyi-web || true",
+              "docker run -d --restart unless-stopped --name gaege-fyi-web -p 80:80 750521683811.dkr.ecr.us-east-1.amazonaws.com/gr-smart-site:${{ github.sha }}"
+            ]' \
+            --region us-east-1 \
+            --query 'Command.CommandId' \
+            --output text)
+
+          echo "SSM command: $COMMAND_ID"
+
+          aws ssm wait command-executed \
+            --command-id "$COMMAND_ID" \
+            --instance-id i-0ada8397a855e2973 \
+            --region us-east-1
