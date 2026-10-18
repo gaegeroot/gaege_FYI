@@ -1,0 +1,108 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('writing', p => !p.data.draft)).sort((a, b) => b.data.date - a.data.date).slice(0, 3);
+const fmt = d => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+const projects = [
+ { n: '01', name: 'Automated deployment pipeline', label: 'Personal infrastructure project',
+   problem: 'Shipping a containerized portfolio without long-lived deployment credentials or an exposed origin.',
+   build: 'GitHub Actions builds Docker images tagged by commit and pushes them to ECR. Deployment runs through SSM on EC2, authenticated with IAM/OIDC federation rather than stored AWS keys. CloudFront and Route 53 serve the public site while the origin stays private. Terraform defines the infrastructure.',
+   tech: 'Docker · GitHub Actions · ECR · EC2 · SSM · IAM/OIDC · CloudFront · Route 53 · Terraform',
+   out: 'No long-lived AWS access keys in the deploy path; the origin is not publicly reachable.' },
+ { n: '02', name: 'Enterprise file-governance automation', label: 'Professional · enterprise client',
+   problem: 'Checking naming conventions across a document environment of roughly 500,000 files and folders, previously by hand.',
+   build: 'A controlled API/proxy service handles interactive requests, while a decoupled worker runs long audits from a Cloud Tasks queue. State lives in Firestore. The Egnyte API is the integration point, and a React interface embedded in Airtable is the front end.',
+   tech: 'Cloud Run · Cloud Tasks · Firestore · VPC · Egnyte API · React · Airtable',
+   out: 'Estimated 100x reduction in manual audit effort; adopted across nine departments.' },
+ { n: '03', name: 'Multi-cloud media distribution platform', label: 'Professional · client project',
+   problem: 'Giving a national distribution partner network private access to high-resolution media without runaway egress costs.',
+   build: 'A SvelteKit portal with authenticated browsing, filtering, sorting, and downloads. Assets sit in Backblaze B2, are synchronized with rsync, and are delivered through BunnyCDN. Firestore and a Google Cloud VPC support the application layer.',
+   tech: 'SvelteKit · Google Cloud VPC · Firestore · Backblaze B2 · BunnyCDN · rsync',
+   out: 'Storage and delivery split to balance download speed against data-egress cost.' },
+];
+const jobs = [
+ ['2022 — Present', 'Founder / Principal Systems Engineer', 'Super Good Systems', 'Designed and built business-process automation across CRM, marketing, e-commerce, and reporting systems, plus integrations and sync pipelines between third-party platforms, with attention to access controls. Tooling includes Make.com, n8n, and Zapier.'],
+ ['Mar 2022 — Nov 2024', 'Full Stack Development Contractor', 'BigThink Media Inc.', 'Features and ongoing maintenance for custom WordPress platforms serving 15M+ monthly users: performance, dependency management, security hardening, usability, and information architecture.'],
+ ['Oct 2020 — Mar 2022', 'Front End Development Contractor', 'Intuit Inc.', 'One of four engineers migrating the Pro Tax products marketing site to a new CMS. Led a performance initiative that improved page loads on high-traffic pages by about 1.4x, and built reusable, themeable React components.'],
+ ['Mar — Dec 2019', 'User Experience Designer', 'Broadpath Healthcare Solutions', 'Owned the styleguide, design lifecycle, and usability testing for a personnel-management platform. The redesign reduced interface clutter and improved brand consistency.'],
+];
+---
+<Base>
+<section class="wrap hero" style="border-bottom:0">
+  <div>
+    <p class="mono kicker">CLOUD / PLATFORMS / AUTOMATION</p>
+    <h1>Software, closer to the systems.</h1>
+    <p class="lede">I'm a software developer with 12+ years of experience building and modernizing web platforms, internal tools, and automation. My current focus is cloud infrastructure and platform engineering, alongside continued exploration of Go, Python, and practical AI integrations.</p>
+    <div class="cta"><a class="btn primary" href="#work">Explore selected work</a><a class="btn" href="https://github.com/gaegeroot">GitHub</a></div>
+  </div>
+  <dl class="facts">
+    <dt>EXPERIENCE</dt><dd>12+ years in software development</dd>
+    <dt>FOCUS</dt><dd>Cloud &amp; platform engineering</dd>
+    <dt>RECENT MILESTONE</dt><dd>Passed the AWS Solutions Architect – Associate exam</dd>
+    <dt>IN PROGRESS</dt><dd>Go, Python, AI integrations</dd>
+  </dl>
+</section>
+
+<section id="work"><div class="wrap">
+  <div class="sec-head"><div><p class="mono kicker">01 / PORTFOLIO</p><h2>SELECTED WORK</h2></div><p>Systems, integrations, and infrastructure built to solve actual problems.</p></div>
+  {projects.map(p => (
+    <article class="entry">
+      <span class="idx">{p.n}</span>
+      <div><h3>{p.name}</h3><span class="label">{p.label}</span><p class="tech">{p.tech}</p></div>
+      <div><p><strong>Problem.</strong> {p.problem}</p><p><strong>Built.</strong> {p.build}</p><p class="outcome">{p.out}</p>
+      <p class="mono small">Source: private / not publicly linked</p></div>
+    </article>
+  ))}
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><p class="mono kicker">02 / CURRENT</p><h2>IN THE WORKSHOP</h2></div><p>Work in progress, kept separate from the shipped work above.</p></div>
+  <div class="cols">
+    <div><h3>Spotify MCP</h3><span class="label">Early experiment</span><p>A basic first implementation exploring the Model Context Protocol and how an AI client can talk to Spotify. Deliberately limited in scope and not production software. Richer library interactions and playlist workflows are possibilities, not features.</p></div>
+    <div><h3>Go and Python</h3><span class="label">Currently exploring</span><p>Building competence through small, practical exercises. Not years of professional use in either language, and not presented as such.</p></div>
+    <div><h3>AWS architecture</h3><span class="label">Hands-on + exam passed</span><p>Deepening system design and infrastructure-as-code practice beyond the Solutions Architect – Associate exam.</p></div>
+  </div>
+</div></section>
+
+<section id="focus"><div class="wrap">
+  <div class="sec-head"><div><p class="mono kicker">03 / SCOPE</p><h2>AREAS OF FOCUS</h2></div><p>Problems of interest, with experience marked as what it is.</p></div>
+  <div class="cols">
+    <div><h3>Cloud infrastructure and delivery</h3><span class="label">Hands-on projects</span><p>AWS and Google Cloud, deployment automation, containers, identity and access, networking, static asset delivery, infrastructure as code.</p></div>
+    <div><h3>Backend systems and integration</h3><span class="label">Professional experience</span><p>API design and integration, asynchronous jobs, third-party systems, data synchronization, authentication and authorization, operational automation.</p></div>
+    <div><h3>AI integration and systems exploration</h3><span class="label">Currently exploring</span><p>MCP, AI-to-service interfaces, Go, Python, and the wider system-design questions around building and deploying software.</p></div>
+  </div>
+  <div class="index">
+    <p><b>CLOUD</b>AWS (ECR, EC2, SSM, IAM, CloudFront, Route 53), Google Cloud (Cloud Run, Cloud Tasks, Firestore), Terraform, Docker</p>
+    <p><b>LANGUAGES</b>JavaScript, React, SvelteKit; Go and Python in progress</p>
+    <p><b>INTEGRATION</b>REST APIs, GitHub Actions, Make.com, n8n, Zapier, MCP</p>
+  </div>
+</div></section>
+
+<section class="dark"><div class="wrap">
+  <p class="mono kicker">04 / APPROACH</p>
+  <h2>THE WORK IS MORE THAN THE CODE.</h2>
+  <div class="perspective">
+    <div><h3>Start with the problem.</h3><p>Client work, UX, and business-process automation taught me to understand the people and workflows a system serves before choosing tools.</p></div>
+    <div><h3>Respect the boundaries.</h3><p>Identity, networking, queues, APIs, and third-party integrations are where software succeeds or fails. The interface is the visible tenth.</p></div>
+    <div><h3>Make decisions explainable.</h3><p>Clear interfaces, deployments you can follow, and explicit tradeoffs. If I can't explain a choice, I haven't finished making it.</p></div>
+  </div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <div class="sec-head"><div><p class="mono kicker">05 / RECORD</p><h2>A CAREER IN BUILDING SOFTWARE</h2></div><p>Selected roles. Freelance and contract work since 2011.</p></div>
+  {jobs.map(j => (
+    <div class="row"><div class="when">{j[0]}</div><div><h3>{j[1]} — {j[2]}</h3><p>{j[3]}</p></div></div>
+  ))}
+  <p class="earlier"><strong>Earlier:</strong> Experience Design Engineer, Simpleview (Feb–Jul 2018) · Front End Contractor, Intuit, San Diego (2017–2018) · Senior Front End Developer, Bizx (2016) · UI/UX Engineer, Leadfusion (2015–2016) · Senior Front End Developer, Bolste (2014–2015) · Freelance and contract development from 2011, with freelance/business-strategy work from 2016.</p>
+</div></section>
+
+<section id="writing"><div class="wrap">
+  <div class="sec-head"><div><p class="mono kicker">06 / NOTES</p><h2>FIELD NOTES</h2></div><p><a href="/writing/">Read all notes</a></p></div>
+  {posts.length === 0
+    ? <p class="empty">Notes from the workbench will appear here.</p>
+    : posts.map(p => (
+      <article class="note"><time class="mono small" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+      <div><h3><a href={`/writing/${p.id}/`}>{p.data.title}</a></h3><p>{p.data.description}</p></div></article>
+    ))}
+</div></section>
+</Base>

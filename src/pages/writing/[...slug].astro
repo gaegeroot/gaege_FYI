@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const posts = await getCollection('writing', p => !p.data.draft);
+  return posts.map(post => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+---
+<Base title={d.title} description={d.description}>
+<article class="wrap page">
+  <p class="mono kicker"><a href="/writing/" style="text-decoration:none">← FIELD NOTES</a></p>
+  <h1 style="font-size:clamp(2.2rem,6vw,4.5rem);max-width:18ch">{d.title}</h1>
+  <p class="meta mono"><time datetime={d.date.toISOString()}>{d.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}</time>{d.tags.length > 0 && <span>{d.tags.join(' / ')}</span>}</p>
+  <div class="prose"><Content /></div>
+</article>
+</Base>

@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+const { title, description = 'Gaege Root: software engineer focused on cloud and platform engineering.' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const full = title ? `${title} — Gaege Root` : 'Gaege Root — Software Engineer / Cloud & Platform';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{full}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title="Field notes" href="/rss.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={full} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <script is:inline>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead wrap">
+    <a class="wordmark" href="/">GAEGE ROOT</a>
+    <span class="role mono">SOFTWARE ENGINEER / CLOUD &amp; PLATFORM</span>
+    <button class="nav-toggle mono" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="mono" aria-label="Primary">
+      <a href="/#work">Work</a><a href="/#experience">Experience</a><a href="/#focus">Focus</a><a href="/#writing">Writing</a>
+      <a class="contact" href="/#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="main"><slot /></main>
+  <footer id="contact" class="colophon">
+    <div class="wrap">
+      <p class="mono kicker">COLOPHON / CONTACT</p>
+      <p class="closing">Interested in cloud engineering and platform engineering opportunities.</p>
+      <ul class="mono links">
+        <li><a href="mailto:gaegeroot@gmail.com">gaegeroot@gmail.com</a></li>
+        <li><a href="https://github.com/gaegeroot">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/gaegeroot">LinkedIn</a></li>
+        <li><a href="/rss.xml">RSS</a></li>
+      </ul>
+      <p class="mono small">Set in system type. Built with Astro. No cookies were harmed.</p>
+    </div>
+  </footer>
+  <script is:inline>
+    const b = document.querySelector('.nav-toggle'), n = document.getElementById('nav');
+    b.addEventListener('click', () => { const o = b.getAttribute('aria-expanded') === 'true'; b.setAttribute('aria-expanded', String(!o)); n.classList.toggle('open', !o); });
+    n.addEventListener('click', e => { if (e.target.tagName === 'A') { b.setAttribute('aria-expanded', 'false'); n.classList.remove('open'); } });
+  </script>
+</body>
+</html>

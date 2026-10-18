@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('writing', p => !p.data.draft)).sort((a, b) => b.data.date - a.data.date);
+const fmt = d => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+<Base title="Writing" description="Field notes on cloud, platform, and systems engineering.">
+<div class="wrap page">
+  <p class="mono kicker">FIELD NOTES</p><h1 style="font-size:clamp(2.4rem,6vw,4.5rem)">Writing</h1>
+  <div style="margin-top:3rem">
+  {posts.length === 0 ? <p class="empty">Notes from the workbench will appear here.</p> :
+    posts.map(p => (
+      <article class="note"><time class="mono small" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+      <div><h3><a href={`/writing/${p.id}/`}>{p.data.title}</a></h3><p>{p.data.description}</p>
+      <p class="tag">{p.data.tags.join(' / ')}</p></div></article>
+    ))}
+  </div>
+</div>
+</Base>
