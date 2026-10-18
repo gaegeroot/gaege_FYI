@@ -16,7 +16,7 @@ concurrency:
 
 env:
   AWS_REGION: us-west-1
-  S3_BUCKET: gr-smart-static-site-750521683811-us-west-1-an
+  S3_BUCKET: gaege-fyi-750521683811-us-east-1-an
   CLOUDFRONT_DISTRIBUTION_ID: E1QXST48WAKSQV
 
 jobs:
