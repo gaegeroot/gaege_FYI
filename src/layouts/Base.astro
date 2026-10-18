@@ -50,6 +50,14 @@ const full = title ? `${title} — Gaege Root` : 'Gaege Root — Software Engine
   </footer>
   <script is:inline>
     const b = document.querySelector('.nav-toggle'), n = document.getElementById('nav');
+    const updateParallax = () => {
+      const offsetY = window.scrollY * -0.035;
+      const offsetX = window.scrollY * 0.02;
+      document.documentElement.style.setProperty('--bg-shift-y', `${offsetY}px`);
+      document.documentElement.style.setProperty('--bg-shift-x', `${offsetX}px`);
+    };
+    updateParallax();
+    window.addEventListener('scroll', updateParallax, { passive: true });
     b.addEventListener('click', () => { const o = b.getAttribute('aria-expanded') === 'true'; b.setAttribute('aria-expanded', String(!o)); n.classList.toggle('open', !o); });
     n.addEventListener('click', e => { if (e.target.tagName === 'A') { b.setAttribute('aria-expanded', 'false'); n.classList.remove('open'); } });
   </script>
