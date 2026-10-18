@@ -44,7 +44,7 @@ const jobs = [
 </section>
 
 <section id="work"><div class="wrap">
-  <div class="sec-head"><div><p class="mono kicker">01 / PORTFOLIO</p><h2>SELECTED WORK</h2></div><p>Systems, integrations, and infrastructure built to solve actual problems.</p></div>
+  <div class="sec-head"><div><p class="mono kicker">01 / PORTFOLIO</p><h2>Selected work</h2></div><p>Systems, integrations, and infrastructure built to solve actual problems.</p></div>
   {projects.map(p => (
     <article class="entry">
       <span class="idx">{p.n}</span>
@@ -56,7 +56,7 @@ const jobs = [
 </div></section>
 
 <section><div class="wrap">
-  <div class="sec-head"><div><p class="mono kicker">02 / CURRENT</p><h2>IN THE WORKSHOP</h2></div><p>Work in progress, kept separate from the shipped work above.</p></div>
+  <div class="sec-head"><div><p class="mono kicker">02 / CURRENT</p><h2>In the workshop</h2></div><p>Work in progress, kept separate from the shipped work above.</p></div>
   <div class="cols">
     <div><h3>Spotify MCP</h3><span class="label">Early experiment</span><p>A basic first implementation exploring the Model Context Protocol and how an AI client can talk to Spotify. Deliberately limited in scope and not production software. Richer library interactions and playlist workflows are possibilities, not features.</p></div>
     <div><h3>Go and Python</h3><span class="label">Currently exploring</span><p>Building competence through small, practical exercises. Not years of professional use in either language, and not presented as such.</p></div>
@@ -65,7 +65,7 @@ const jobs = [
 </div></section>
 
 <section id="focus"><div class="wrap">
-  <div class="sec-head"><div><p class="mono kicker">03 / SCOPE</p><h2>AREAS OF FOCUS</h2></div><p>Problems of interest, with experience marked as what it is.</p></div>
+  <div class="sec-head"><div><p class="mono kicker">03 / SCOPE</p><h2>Areas of focus</h2></div><p>Problems of interest, with experience marked as what it is.</p></div>
   <div class="cols">
     <div><h3>Cloud infrastructure and delivery</h3><span class="label">Hands-on projects</span><p>AWS and Google Cloud, deployment automation, containers, identity and access, networking, static asset delivery, infrastructure as code.</p></div>
     <div><h3>Backend systems and integration</h3><span class="label">Professional experience</span><p>API design and integration, asynchronous jobs, third-party systems, data synchronization, authentication and authorization, operational automation.</p></div>
@@ -80,7 +80,7 @@ const jobs = [
 
 <section class="dark"><div class="wrap">
   <p class="mono kicker">04 / APPROACH</p>
-  <h2>THE WORK IS MORE THAN THE CODE.</h2>
+  <h2>The work is more than the code.</h2>
   <div class="perspective">
     <div><h3>Start with the problem.</h3><p>Client work, UX, and business-process automation taught me to understand the people and workflows a system serves before choosing tools.</p></div>
     <div><h3>Respect the boundaries.</h3><p>Identity, networking, queues, APIs, and third-party integrations are where software succeeds or fails. The interface is the visible tenth.</p></div>
@@ -89,7 +89,7 @@ const jobs = [
 </div></section>
 
 <section id="experience"><div class="wrap">
-  <div class="sec-head"><div><p class="mono kicker">05 / RECORD</p><h2>A CAREER IN BUILDING SOFTWARE</h2></div><p>Selected roles. Freelance and contract work since 2011.</p></div>
+  <div class="sec-head"><div><p class="mono kicker">05 / RECORD</p><h2>A career in building software</h2></div><p>Selected roles. Freelance and contract work since 2011.</p></div>
   {jobs.map(j => (
     <div class="row"><div class="when">{j[0]}</div><div><h3>{j[1]} — {j[2]}</h3><p>{j[3]}</p></div></div>
   ))}
@@ -97,7 +97,7 @@ const jobs = [
 </div></section>
 
 <section id="writing"><div class="wrap">
-  <div class="sec-head"><div><p class="mono kicker">06 / NOTES</p><h2>FIELD NOTES</h2></div><p><a href="/writing/">Read all notes</a></p></div>
+  <div class="sec-head"><div><p class="mono kicker">06 / NOTES</p><h2>Field notes</h2></div><p><a href="/writing/">Read all notes</a></p></div>
   {posts.length === 0
     ? <p class="empty">Notes from the workbench will appear here.</p>
     : posts.map(p => (

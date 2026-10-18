@@ -1,9 +1,13 @@
 :root{--paper:#F2EEE5;--ink:#171717;--muted:#55524D;--rule:#B9B3A8;--accent:#A12E2A;--dark:#222;
 --serif:Georgia,"Iowan Old Style","Times New Roman",serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+--display:"Federo","Georgia","Iowan Old Style","Times New Roman",serif;
 --w:72rem;--gut:clamp(1.25rem,4vw,3rem);--sp:clamp(4rem,9vw,8rem);--hair:1px}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:4rem}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 body{margin:0;background:var(--paper);color:var(--ink);font:1.0625rem/1.65 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;background-image:linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07));background-size:1px 18rem,19rem 1px,1px 21rem,23rem 1px,1px 17rem,18rem 1px,1px 22rem,18rem 1px,1px 12rem,15rem 1px;background-position:7% 8%,3% 23%,29% 34%,12% 57%,64% 10%,58% 20%,91% 48%,70% 70%,42% 77%,30% 88%;background-repeat:no-repeat}
+@media(max-width:40rem){body::before{background-image:linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07)),linear-gradient(rgba(23,23,23,.07),rgba(23,23,23,.07));background-size:1px 12rem,14rem 1px,1px 11rem,9rem 1px,1px 10rem,13rem 1px;background-position:15% 17%,10% 34%,82% 52%,64% 63%,46% 80%,24% 88%}}
+.masthead,main,.colophon{position:relative;z-index:1}
 a{color:inherit;text-decoration-color:var(--accent);text-underline-offset:.2em}a:hover{color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .wrap{max-width:var(--w);margin:0 auto;padding:0 var(--gut)}
@@ -12,7 +16,13 @@ a{color:inherit;text-decoration-color:var(--accent);text-underline-offset:.2em}a
 .skip{position:absolute;left:-999px;background:var(--ink);color:var(--paper);padding:.5rem 1rem}.skip:focus{left:0;z-index:10}
 .masthead{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.5rem;padding-top:1rem;padding-bottom:1rem;border-bottom:var(--hair) solid var(--ink)}
 .wordmark{font-family:var(--serif);font-weight:700;letter-spacing:.18em;text-decoration:none;font-size:1rem}
-.role{color:var(--muted);flex:1}
+.kicker,
+.label,
+.entry .idx,
+.row .when,
+.index b,
+.facts dt,
+.mono{letter-spacing:.08em}.role{color:var(--muted);flex:1}
 nav{display:flex;gap:1.5rem}nav a{text-decoration:none;padding:.5rem 0}nav a:hover{text-decoration:underline}nav .contact{color:var(--accent)}
 .nav-toggle{display:none;background:none;border:var(--hair) solid var(--ink);padding:.6rem 1rem;color:var(--ink);cursor:pointer}
 @media(max-width:52rem){.role{display:none}.wordmark{flex:1}
@@ -20,10 +30,16 @@ nav{display:flex;gap:1.5rem}nav a{text-decoration:none;padding:.5rem 0}nav a:hov
  nav a{padding:.8rem 0;border-bottom:var(--hair) solid var(--rule)}}
 section{padding:var(--sp) 0;border-bottom:var(--hair) solid var(--rule)}
 .kicker{color:var(--accent);margin:0 0 1.5rem}
-h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.05;margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;margin:0}
 h1{font-size:clamp(2.8rem,8vw,6.5rem);letter-spacing:-.02em;max-width:12ch}
-h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.01em;max-width:20ch}
-h3{font-size:1.5rem;line-height:1.2}
+h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.01em;max-width:20ch;text-transform:none}
+h3{font-size:1.5rem;line-height:1.2;text-transform:none}
+.sec-head h2,
+.row h3,
+.note h3,
+.entry h3,
+.closing,
+.wordmark{letter-spacing:.02em}
 .lede{max-width:38rem;font-size:1.2rem;color:var(--muted);margin:2rem 0}
 .hero{display:grid;grid-template-columns:1fr 17rem;gap:3rem;padding-top:calc(var(--sp) + 1rem)}
 @media(max-width:52rem){.hero{grid-template-columns:1fr}}
